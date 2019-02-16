@@ -63,22 +63,22 @@ const server = app.listen(port);
 
 var gun = Gun({web: server });
 
-//One time run for server gun user
 
-// gun.user().create(c.creds.username, c.creds.password, function(ack){
-//  if (ack.err){
-//      console.log(ack.err);
-//  }
-//  else{
-//   gun.user().auth(c.creds.username, c.creds.password, function(ack){
-//        console.log(gun.user().is.pub);
-//     })
-//   }
-// });
+
 
 gun.user().auth(c.creds.username, c.creds.password, function(ack) {
-  if(ack.err) {
+  if(ack.err) {//should error if creds are invalid(or first server start)
     console.log(ack.err);
+    gun.user().create(c.creds.username, c.creds.password, function(ack){//create user with the same creds
+      if (ack.err){
+          console.log(ack.err);
+      }
+      else{
+       gun.user().auth(c.creds.username, c.creds.password, function(ack){//once created login in again
+            console.log(gun.user().is.pub);
+         })
+       }
+     });
   }
   else {
     console.log('Server gun user authenticated.');

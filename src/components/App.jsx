@@ -39,6 +39,9 @@ class App extends Component {
           {!this.state.loggedIn && <Route exact path="/"
             render={(props) => <Home {...props} user={this.user} onUpdate={this.onUpdate.bind(this)} />}
           />}
+          {this.state.loggedIn && <Route exact path="/"
+            render={(props) => <Today {...props} user={this.user} />}
+          />}
           <Route exact path="/login"
             render={(props) => <LoginForm {...props} user={this.user} onUpdate={this.onUpdate.bind(this)} />}
           />

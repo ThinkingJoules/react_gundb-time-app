@@ -99,6 +99,7 @@ class Timer extends Component {
               gunUser.get(getString).get('duration').put(duration);
             }
             else {
+              var duration = (checkOut - created)/3600;
               gunUser.get(getString).get('duration').put(duration);
             }
           }
@@ -106,7 +107,7 @@ class Timer extends Component {
         self.setState({currentTimer: '00:00:00'})
         self.setState({task: ''})
         self.setState({project: ''})
-        toastr['success']('Time entry clocked out');
+        //toastr['success']('Time entry clocked out');
       }
     });
   }
